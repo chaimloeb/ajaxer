@@ -35,7 +35,7 @@
         submitHandler: function (form) {
           const $form = $(form);
           $.ajax({
-            url: actionUrl,
+            url: $form.attr('action'),
             method: $form.attr('method') || 'POST',
             data: $form.serialize(),
             dataType: 'json',
