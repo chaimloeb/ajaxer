@@ -8,7 +8,7 @@
       const $submitBtn = $form.find('[type="submit"]');
 
       $submitBtn.prop('disabled', true);
-
+      $submitBtn.find('span').html("Processing...");
       getParams.forEach((value, key) => {
         if (!$form.find(`[name="${key}"]`).length) {
           $form.append(
@@ -28,12 +28,14 @@
       window.cfCallback = function (token) {
         if (token && token.length > 0) {
           $submitBtn.prop('disabled', false);
+          $submitBtn.find('span').html("Process donation");
         }
       };
 
       $form.validate({
         submitHandler: function (form) {
           const $form = $(form);
+
           $.ajax({
             url: $form.attr('action'),
             method: $form.attr('method') || 'POST',
@@ -50,6 +52,7 @@
                 turnstile.reset(captchaId);
               }
               $submitBtn.prop('disabled', true);
+              $submitBtn.find('span').html("Process donation");
             },
           });
 
